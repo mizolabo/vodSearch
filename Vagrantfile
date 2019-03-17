@@ -1,11 +1,10 @@
-
 Vagrant.configure("2") do |config|
 
   config.vm.box = "bento/centos-7.4"
 
   # メモリを増やしておく
   config.vm.provider "virtualbox" do |v|
-    v.memory = 4096
+    v.memory = 2048
     v.cpus = 2
   end
 
@@ -19,8 +18,6 @@ Vagrant.configure("2") do |config|
 
   # ホスト側にポートフォワーディングして Web の画面を見れたりデータベースアクセスできたりするようにしておく
   config.vm.network "private_network", ip: "192.168.33.11"
-  config.vm.network "forwarded_port", host: 4000, guest: 3000 # Web 用
-  config.vm.network "forwarded_port", host: 4306, guest: 3306 # DB(MySQL) 用
 
   # ホスト側の docker-compose.yml などのファイルを VM 内で参照するため共有しておく
   config.vm.synced_folder "C:/work/vodSearch", "/home/vagrant/vodSearch"
