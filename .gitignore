@@ -1,2 +1,4 @@
 .vagrant/
 vodSearchApp/uwsgi.log
+vodSearchApp/__pycache__
+docker/vod-search_web/log/
