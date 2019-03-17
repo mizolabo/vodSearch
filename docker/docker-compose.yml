@@ -1,0 +1,41 @@
+version: '3.4'
+services:
+  vod-search_db:
+    image: 'mysql:5'
+    environment:
+      MYSQL_DATABASE: vod-search-db
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: mizolabo
+      MYSQL_PASSWORD: mizolabo
+
+  vod-search_web:
+    # build:
+    #   context: ./vod-search_web
+    #   dockerfile: Dockerfile
+    image: nginx:1.15.9
+    ports:
+      - "8000:8000"
+    volumes:
+      - './vod-search_web/nginx.conf:/etc/nginx/conf.d/nginx.conf'
+      - './vod-search_web/uwsgi_params:/etc/nginx/uwsgi_params'
+      - './vod-search_web/static:/static'
+      - './vod-search_web/log:/var/log/nginx'
+    environment:
+      TZ: Asia/Tokyo
+    depends_on:
+      - vod-search_app
+
+  vod-search_app:
+    build:
+      context: ./vod-search_app
+      dockerfile: Dockerfile
+    command: uwsgi --ini /code/vodSearchApp/django.ini
+    volumes:
+      - '../vodSearchApp:/code/vodSearchApp'
+      - '../vodSearchApp/static:/static'
+    environment:
+      TZ: Asia/Tokyo
+    expose:
+      - "8001"
+    depends_on:
+      - vod-search_db
