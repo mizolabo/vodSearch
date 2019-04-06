@@ -15,6 +15,8 @@ Vagrant.configure("2") do |config|
     sudo chmod +x /usr/local/bin/docker-compose
   SHELL
 
+  config.vm.provision "shell", run: "always", inline: "cd /home/vagrant/vodSearch/docker && /usr/local/bin/docker-compose build && /usr/local/bin/docker-compose up -d 1>&2"
+
   # ローカルからアクセスするためのIPを設定
   config.vm.network "private_network", ip: "192.168.33.11"
 
