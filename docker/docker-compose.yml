@@ -2,6 +2,8 @@ version: '3.4'
 services:
   vod-search_db:
     image: mysql:5
+    ports:
+      - 3306:3306
     environment:
       MYSQL_DATABASE: vod-search-db
       MYSQL_ROOT_PASSWORD: root
