@@ -2,3 +2,4 @@
 vodSearchApp/uwsgi.log
 __pycache__
 docker/vod-search_web/log/
+*.log
