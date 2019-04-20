@@ -33,9 +33,9 @@ services:
     build:
       context: ./vod-search_app
       dockerfile: Dockerfile
-    command: uwsgi --ini /code/vodSearchApp/django.ini
+    command: uwsgi --ini /code/app/django.ini
     volumes:
-      - ../vodSearchApp:/code/vodSearchApp
+      - ../vodSearchApp:/code
       - ../vodSearchApp/static:/static
     environment:
       TZ: Asia/Tokyo
